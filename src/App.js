@@ -29,11 +29,32 @@ function App() {
 
   return (
     <div className="wrapper">
-      <div className="message my_message">
-        <p>So what were you saying?</p>
+    <div className='texts'>
+    <div className="message my_message">
+        <p>So what were you saying?
+          <span>12:15</span>
+        </p>
       </div>
-    <div>
-      Hi
+      <div className="message ai_message">
+        <p>If you want to make a robot, know how to use
+          <span>12:15</span>
+        </p>
+      </div>
+      <div className="message my_message">
+        <p>So what were you saying?
+          <span>12:15</span>
+        </p>
+      </div>
+      <div className="message ai_message">
+        <p>If you want to make a robot, know how to use
+          <span>12:15</span>
+        </p>
+      </div>
+      <div className="message ai_message">
+        <p>If you want to make a robot, know how to use
+          <span>12:15</span>
+        </p>
+      </div>
     </div>
     <div className="ask-area">
      <p className="response-area">
