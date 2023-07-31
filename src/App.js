@@ -29,6 +29,9 @@ function App() {
 
   return (
     <div className="wrapper">
+      <div className="message my_message">
+        <p>So what were you saying?</p>
+      </div>
     <div>
       Hi
     </div>
