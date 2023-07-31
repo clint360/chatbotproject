@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import CGLogo from './chatGPT.png';
 import AppLogo from './app-logo.png';
@@ -8,11 +8,22 @@ function App() {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  class Message {
+    constructor(content, src, time) {
+      this.content = content;
+      this.src = src;
+      this.time = time;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
+    const m = new Message(prompt, 'user', '12:14');
+    setMessages((prev) => [...prev, m]);
     // communicate with API
     // post input value 'prompt' to API end point 
     axios
@@ -24,54 +35,54 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
-    
+
   };
 
   return (
-    <div className="wrapper">
-    <div className='texts'>
-    <div className="message my_message">
-        <p>So what were you saying?
-          <span>12:15</span>
-        </p>
-      </div>
-      <div className="message ai_message">
-        <p>If you want to make a robot, know how to use
-          <span>12:15</span>
-        </p>
-      </div>
-      <div className="message my_message">
-        <p>So what were you saying?
-          <span>12:15</span>
-        </p>
-      </div>
-      <div className="message ai_message">
-        <p>If you want to make a robot, know how to use
-          <span>12:15</span>
-        </p>
-      </div>
-      <div className="message ai_message">
-        <p>If you want to make a robot, know how to use
-          <span>12:15</span>
-        </p>
+    <div>
+      <div style={{ textAlign: 'center' }}>My AI</div>
+      <div className="wrapper">
+        <div className='texts'>
+          {messages && messages.map((message, index) => {
+            if (message.src === 'user') {
+              return (
+
+                <div className="message my_message">
+                  <p>{message.content}
+                    <span>{message.time}</span>
+                  </p>
+                </div>
+              )
+            } else {
+              return (
+
+                <div className="message ai_message">
+                  <p>{message.content}
+                    <span>{message.time}</span>
+                  </p>
+                </div>
+              )
+            }
+          })}
+
+        </div>
+        <div className="ask-area">
+          <p className="response-area">
+            {loading ? 'loading...' : response}
+          </p>
+          <form onSubmit={handleSubmit}>
+            <img src={CGLogo} alt="" className={loading ? 'cg-logo loading' : 'cg-logo'} />
+            <input
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Ask anything... :)"
+            />
+            <button type="submit">Ask</button>
+          </form>
+        </div>
       </div>
     </div>
-    <div className="ask-area">
-     <p className="response-area">
-        {loading ? 'loading...' : response}
-      </p>
-      <form onSubmit={handleSubmit}>
-        <img src={CGLogo} alt="" className={loading ? 'cg-logo loading' : 'cg-logo'} />
-        <input
-          type="text"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Ask anything... :)"
-        />
-        <button type="submit">Ask</button>
-      </form>
-      </div>
-</div>
   );
 }
 
