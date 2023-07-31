@@ -44,25 +44,13 @@ function App() {
       <div className="wrapper">
         <div className='texts'>
           {messages && messages.map((message, index) => {
-            if (message.src === 'user') {
               return (
-
-                <div className="message my_message">
+                <div className={`message ${ message.src === 'user' ?`my_message` : `ai_message`}`}>
                   <p>{message.content}
                     <span>{message.time}</span>
                   </p>
                 </div>
               )
-            } else {
-              return (
-
-                <div className="message ai_message">
-                  <p>{message.content}
-                    <span>{message.time}</span>
-                  </p>
-                </div>
-              )
-            }
           })}
 
         </div>
