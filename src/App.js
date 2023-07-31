@@ -30,10 +30,11 @@ function App() {
       .post("http://localhost:5555/chat", { prompt })
       .then((res) => {
         setResponse(res.data);
+        const a = new Message(res.data, 'user', '12:14');
+        setMessages((prev) => [...prev, a]);
         setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
       });
 
   };
